@@ -55,7 +55,7 @@ CREATE TABLE `conviction` (
   `sentence` int unsigned,
   `fine` int unsigned,
   `decade` enum("pre-20th century", "1900-09", 
-				"1910-19", "1920-29", "1930-39", 
+				        "1910-19", "1920-29", "1930-39", 
                 "1940-49", "1950-59", "1960-69", 
                 "1970-79", "1980-89", "1990-99", 
                 "2000-09", "2010-19", "2020-29"),
@@ -73,4 +73,3 @@ CREATE TABLE `conviction` (
   CONSTRAINT `fk_conviction_user_id_initial` FOREIGN KEY (`user_id_initial`) REFERENCES `user` (`user_id`),
   CONSTRAINT `fk_conviction_user_id_last` FOREIGN KEY (`user_id_last`) REFERENCES `user` (`user_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
-
