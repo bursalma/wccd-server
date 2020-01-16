@@ -1,5 +1,17 @@
 USE `white_collar`;
 
+DROP TABLE IF EXISTS `source_type_conviction`;
+DROP TABLE IF EXISTS `source_type`;
+DROP TABLE IF EXISTS `location_conviction`;
+DROP TABLE IF EXISTS `location`;
+DROP TABLE IF EXISTS `scheme_conviction`;
+DROP TABLE IF EXISTS `scheme`;
+DROP TABLE IF EXISTS `crime_conviction`;
+DROP TABLE IF EXISTS `crime`;
+DROP TABLE IF EXISTS `occupation_conviction`;
+DROP TABLE IF EXISTS `occupation`;
+DROP TABLE IF EXISTS `sector_conviction`;
+DROP TABLE IF EXISTS `sector`;
 DROP TABLE IF EXISTS `conviction`;
 DROP TABLE IF EXISTS `convict`;
 DROP TABLE IF EXISTS `nationality`;
@@ -72,4 +84,97 @@ CREATE TABLE `conviction` (
   CONSTRAINT `fk_conviction_convict` FOREIGN KEY (`convict_id`) REFERENCES `convict` (`convict_id`),
   CONSTRAINT `fk_conviction_user_id_initial` FOREIGN KEY (`user_id_initial`) REFERENCES `user` (`user_id`),
   CONSTRAINT `fk_conviction_user_id_last` FOREIGN KEY (`user_id_last`) REFERENCES `user` (`user_id`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `sector` (
+  `sector_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `sector` VARCHAR(85),
+  `sector_desc` VARCHAR(85),
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`sector_id`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `sector_conviction` (
+  `conviction_id` INT UNSIGNED NOT NULL,
+  `sector_id` INT UNSIGNED NOT NULL,
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT `fk_sector_conviction_conviction` FOREIGN KEY (`conviction_id`) REFERENCES `conviction` (`conviction_id`),
+  CONSTRAINT `fk_sector_conviction_sector` FOREIGN KEY (`sector_id`) REFERENCES `sector` (`sector_id`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `occupation` (
+  `occupation_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `occupation` VARCHAR(45),
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`occupation_id`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `occupation_conviction` (
+  `conviction_id` INT UNSIGNED NOT NULL,
+  `occupation_id` INT UNSIGNED NOT NULL,
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT `fk_occupation_conviction_conviction` FOREIGN KEY (`conviction_id`) REFERENCES `conviction` (`conviction_id`),
+  CONSTRAINT `fk_occupation_conviction_occupation` FOREIGN KEY (`occupation_id`) REFERENCES `occupation` (`occupation_id`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `crime` (
+  `crime_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `crime` VARCHAR(45),
+  `crime_desc` VARCHAR(950),
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`crime_id`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `crime_conviction` (
+  `conviction_id` INT UNSIGNED NOT NULL,
+  `crime_id` INT UNSIGNED NOT NULL,
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT `fk_crime_conviction_conviction` FOREIGN KEY (`conviction_id`) REFERENCES `conviction` (`conviction_id`),
+  CONSTRAINT `fk_crime_conviction_crime` FOREIGN KEY (`crime_id`) REFERENCES `crime` (`crime_id`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `scheme` (
+  `scheme_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `scheme` VARCHAR(45),
+  `scheme_desc` VARCHAR(950),
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`scheme_id`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `scheme_conviction` (
+  `conviction_id` INT UNSIGNED NOT NULL,
+  `scheme_id` INT UNSIGNED NOT NULL,
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT `fk_scheme_conviction_conviction` FOREIGN KEY (`conviction_id`) REFERENCES `conviction` (`conviction_id`),
+  CONSTRAINT `fk_scheme_conviction_scheme` FOREIGN KEY (`scheme_id`) REFERENCES `scheme` (`scheme_id`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `location` (
+  `location_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `location` VARCHAR(45),
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`location_id`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `location_conviction` (
+  `conviction_id` INT UNSIGNED NOT NULL,
+  `location_id` INT UNSIGNED NOT NULL,
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT `fk_location_conviction_conviction` FOREIGN KEY (`conviction_id`) REFERENCES `conviction` (`conviction_id`),
+  CONSTRAINT `fk_location_conviction_location` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `source_type` (
+  `source_type_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `source_type` VARCHAR(45),
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`source_type_id`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+
+CREATE TABLE `source_type_conviction` (
+  `conviction_id` INT UNSIGNED NOT NULL,
+  `source_type_id` INT UNSIGNED NOT NULL,
+  `last_update` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT `fk_source_type_conviction_conviction` FOREIGN KEY (`conviction_id`) REFERENCES `conviction` (`conviction_id`),
+  CONSTRAINT `fk_source_type_conviction_source_type` FOREIGN KEY (`source_type_id`) REFERENCES `source_type` (`source_type_id`)
 ) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
