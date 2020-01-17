@@ -19,3 +19,6 @@ select * from `sector_conviction`;
 select * from `source_type`;
 select * from `source_type_conviction`;
 select * from `user`;
+
+# ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '12e';
+# FLUSH PRIVILEGES;

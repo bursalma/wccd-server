@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "connectionTimeout": 15,
+            "database": "white_collar",
+            "dialect": "MySQL",
+            "name": "Ali",
+            "password": "12e",
+            "port": 3306,
+            "server": "192.168.56.102",
+            "username": "root"
+        }
+    ]
+}
