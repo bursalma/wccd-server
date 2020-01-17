@@ -1,0 +1,21 @@
+.table-container {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24), inset 0px 4px 0px 0px orange;
+    border-radius: 10px;
+}
+
+.table-header-container {
+    padding: 10px 0px;
+}
+
+.table-header-container h1 {
+    display: inline;
+}
+
+.table-header-container .button {
+    height: fit-content;
+}

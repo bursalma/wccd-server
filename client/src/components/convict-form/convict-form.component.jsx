@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
-  Form, 
-  Container,
+  Form,
   Select,
   Input,
   Header,
@@ -10,9 +9,9 @@ import {
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-import './form-page.component.css';
+import './convict-form.component.css';
 
-const FormPage = () => {
+const ConvictForm = () => {
   const genders = [
     { key: 'm', text: 'Male', value: 'male' },
     { key: 'f', text: 'Female', value: 'female' },
@@ -30,7 +29,7 @@ const FormPage = () => {
   // }
 
   return (
-    <Container className='form-container'>
+    // <Container className='form-container'>
       <Form className='form'>
         {/* Convict Information */}
         <Header as='h2'>Convict Information</Header>
@@ -138,8 +137,8 @@ const FormPage = () => {
           <SemanticDatepicker />
         </Form.Group>
       </Form>
-    </Container>
+    //</Container>
   );
 }
 
-export default FormPage;
+export default ConvictForm;
