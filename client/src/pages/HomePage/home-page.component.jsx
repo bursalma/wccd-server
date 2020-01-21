@@ -39,7 +39,7 @@ class HomePage extends React.Component {
           centered
           size='large'
         >
-          <ConvictForm></ConvictForm>
+          <ConvictForm handleSubmit></ConvictForm>
         </Modal>
       </div>
     );
