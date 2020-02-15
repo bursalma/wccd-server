@@ -14,7 +14,7 @@ unix: `pip3 install pipenv`
 win : `pip install pipenv`
 
 start pipenv virtual environment
-`pipenv shell`
+`cd client && pipenv shell`
 
 install required packages from the pipfile
 `pipenv install`

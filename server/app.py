@@ -1,13 +1,34 @@
-from flask import   Flask, request, url_for, abort, \
-                    session, redirect, flash
-from werkzeug.utils import secure_filename
-from markupsafe import escape
+from flask import Flask, make_response, request, jsonify
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
+@app.route("/", methods=['GET'])
+def hello():
+    if request.method != 'GET':
+        return make_response('Malformed request', 400)
+    my_dict = {'key': 'dictionary value'}
+    headers = {"Content-Type": "application/json"}
+    return make_response(jsonify(my_dict), 200, headers)!'
+
+
+from flask_sqlalchemy import SQLAlchemy
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12e@192.168.56.101/white_collar'
+
+
+
+
+
+
+
+
+
+
+# from flask import   Flask, request, url_for, abort, \
+#                     session, redirect, flash
+# from werkzeug.utils import secure_filename
+# from markupsafe import escape
+
 
 
 # @app.route('/login', methods=['POST', 'GET'])
