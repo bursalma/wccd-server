@@ -1,6 +1,9 @@
 from flask import Flask, make_response, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=False)
+
+app.config.from_object('config.Config')
 
 @app.route("/", methods=['GET'])
 def hello():
@@ -11,17 +14,11 @@ def hello():
     return make_response(jsonify(my_dict), 200, headers)
 
 
-from flask_sqlalchemy import SQLAlchemy
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12e@192.168.56.101/white_collar'
 
 
 
 
-
-
-
-
+# app.config['SQLALCHEMY_DATABASE_URI'] = ''
 
 
 # from flask import   Flask, request, url_for, abort, \
