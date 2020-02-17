@@ -1,14 +1,18 @@
 from flask import Flask, make_response, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from .admin import admin_routes
+from .specialist import specialist_routes
+from .viewer import viewer_routes
+import sqlite3
 
 app = Flask(__name__, instance_relative_config=False)
+app.config.from_object('config.DevConfig')
+app.register_blueprint(admin_routes.admin_bp)
+app.register_blueprint(specialist_routes.specialist_bp)
+app.register_blueprint(viewer_routes.viewer_bp)
 
-db.init_app(app)
+db = SQLAlchemy(app)
 
-# app.config.from_object('config.Config')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12e@192.168.56.102/white_collar'
 
 @app.route("/", methods=['GET'])
 def hello():
@@ -19,58 +23,60 @@ def hello():
     return make_response(jsonify(my_dict), 200, headers)
 
 
-class User(db.Model):
-    """Model for user accounts."""
+# class User(db.Model):
+#     """Model for user accounts."""
 
-    __tablename__ = 'users'
-    id = db.Column(db.Integer,
-                   primary_key=True)
-    username = db.Column(db.String(64),
-                         index=False,
-                         unique=True,
-                         nullable=False)
-    email = db.Column(db.String(80),
-                      index=True,
-                      unique=True,
-                      nullable=False)
-    created = db.Column(db.DateTime,
-                        index=False,
-                        unique=False,
-                        nullable=False)
-    bio = db.Column(db.Text,
-                    index=False,
-                    unique=False,
-                    nullable=True)
-    admin = db.Column(db.Boolean,
-                      index=False,
-                      unique=False,
-                      nullable=False)
+#     __tablename__ = 'users'
+#     id = db.Column(db.Integer,
+#                    primary_key=True)
+#     username = db.Column(db.String(64),
+#                          index=False,
+#                          unique=True,
+#                          nullable=False)
+#     email = db.Column(db.String(80),
+#                       index=True,
+#                       unique=True,
+#                       nullable=False)
+#     created = db.Column(db.DateTime,
+#                         index=False,
+#                         unique=False,
+#                         nullable=False)
+#     bio = db.Column(db.Text,
+#                     index=False,
+#                     unique=False,
+#                     nullable=True)
+#     admin = db.Column(db.Boolean,
+#                       index=False,
+#                       unique=False,
+#                       nullable=False)
 
-    def __repr__(self):
-        return '<User {}>'.format(self.username)
-
-
-from datetime import datetime as dt
-
-@app.route('/user', methods=['GET'])
-def create_user():
-    """Create a user."""
-    # username = request.args.get('user')
-    # email = request.args.get('email')
-    username = 'mali'
-    email = 'mali@g.com'
-    if username and email:
-        new_user = User(username=username,
-                        email=email,
-                        created=dt.now(),
-                        bio="In West Philadelphia born and raised, on the playground is where I spent most of my days",
-                        admin=False)  # Create an instance of the User class
-        db.session.add(new_user)  # Adds new User record to database
-        db.session.commit()  # Commits all changes
-    return make_response(f"{new_user} successfully created!")
+#     def __repr__(self):
+#         return '<User {}>'.format(self.username)
 
 
-db.create_all()
+# from datetime import datetime as dt
+
+# @app.route('/user', methods=['GET'])
+# def create_user():
+#     """Create a user."""
+#     # username = request.args.get('user')
+#     # email = request.args.get('email')
+#     username = 'mali'
+#     email = 'mali@g.com'
+#     if username and email:
+#         new_user = User(username=username,
+#                         email=email,
+#                         created=dt.now(),
+#                         bio="In West Philadelphia born and raised, on the playground is where I spent most of my days",
+#                         admin=False)  # Create an instance of the User class
+#         db.session.add(new_user)  # Adds new User record to database
+#         db.session.commit()  # Commits all changes
+#     return make_response(f"{new_user} successfully created!")
+
+# db.create_all()
+
+
+
 
 
 

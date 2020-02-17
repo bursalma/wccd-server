@@ -1,15 +1,21 @@
-from os import environ
+"""Flask config class."""
+import os
 
 
 class Config:
-    """Set Flask configuration vars from .env file."""
-
-    # General
-    TESTING = environ.get('TESTING')
-    FLASK_DEBUG = environ.get('FLASK_DEBUG')
-    SECRET_KEY = environ.get('SECRET_KEY')
-    SESSION_COOKIE_NAME = environ.get('SESSION_COOKIE_NAME')
-
-    # Database
-    SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI')
+    """Base config vars."""
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SESSION_COOKIE_NAME = os.environ.get('SESSION_COOKIE_NAME')
     SQLALCHEMY_TRACK_MODIFICATIONS = environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
+
+
+class ProdConfig(Config):
+    DEBUG = False
+    TESTING = False
+    DATABASE_URI = os.environ.get('PROD_DATABASE_URI')
+
+
+class DevConfig(Config):
+    DEBUG = True
+    TESTING = False
+    DATABASE_URI = os.environ.get('DEV_DATABASE_URI')
