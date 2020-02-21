@@ -1,26 +1,15 @@
-from flask import Flask, make_response, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from .admin import admin_routes
-from .specialist import specialist_routes
-from .viewer import viewer_routes
-import sqlite3
+# from flask import Flask, make_response, request, jsonify
+# from flask_sqlalchemy import SQLAlchemy
+# from .admin import admin_routes
+# from .specialist import specialist_routes
+# from .viewer import viewer_routes
+# import sqlite3
 
-app = Flask(__name__, instance_relative_config=False)
-app.config.from_object('config.DevConfig')
-app.register_blueprint(admin_routes.admin_bp)
-app.register_blueprint(specialist_routes.specialist_bp)
-app.register_blueprint(viewer_routes.viewer_bp)
-
-db = SQLAlchemy(app)
-
-
-@app.route("/", methods=['GET'])
-def hello():
-    if request.method != 'GET':
-        return make_response('Malformed request', 400)
-    my_dict = {'key': 'dictionary value'}
-    headers = {"Content-Type": "application/json"}
-    return make_response(jsonify(my_dict), 200, headers)
+# app = Flask(__name__, instance_relative_config=False)
+# app.config.from_object('config.DevConfig')
+# app.register_blueprint(admin_routes.admin_bp)
+# app.register_blueprint(specialist_routes.specialist_bp)
+# app.register_blueprint(viewer_routes.viewer_bp)
 
 
 # class User(db.Model):
