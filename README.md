@@ -9,29 +9,32 @@ Start the client:
 `npm start` or `yarn start`
 
 ## Running the Server ##
-go to server folder and make sure pipenv is installed
-unix: `pip3 install pipenv`
-win : `pip install pipenv`
+#### make sure pipenv is installed
+    pip3 install pipenv
 
-start pipenv virtual environment
-`cd client && pipenv shell`
+#### start pipenv virtual environment
+    cd server && pipenv shell
 
-install required packages from the pipfile
-`pipenv install`
+#### install required packages from the pipfile
+    pipenv update
 
-set flask server
-unix: `export FLASK_APP="wsgi.py"`
-cmd : `set FLASK_APP="wsgi.py"`
-ps  : `$env:FLASK_APP="wsgi.py"`
+#### set flask server
+```sh
+export FLASK_APP=wsgi.py
+$env:FLASK_APP="wsgi.py"
+```
 
-optionally turn on debug mode for deploying changes during service
-unix: `export FLASK_ENV="development"`
-cmd : `set FLASK_ENV="development"`
-ps  : `$env:FLASK_ENV="development"`
+##### optionally turn on debug mode for deploying changes during service
+```sh
+export FLASK_ENV=development
+$env:FLASK_ENV="development"
+```
 
-run
-`flask run`
+#### run
+    flask run
 
-pending
-`export APP_CONFIG_FILE="config.py"`
-`$env:APP_CONFIG_FILE="config.py"`
+#### ignore me
+```sh
+export APP_CONFIG_FILE="config.py"
+$env:APP_CONFIG_FILE="config.py"
+```
