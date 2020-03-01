@@ -1,6 +1,5 @@
 # start.sh
 
-cd server
 pipenv shell
 pipenv update
 export FLASK_APP=wsgi.py

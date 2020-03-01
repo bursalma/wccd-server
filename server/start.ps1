@@ -1,6 +1,5 @@
 # start.ps1
 
-cd server
 pipenv shell
 pipenv update
 $env:FLASK_APP="wsgi.py"
