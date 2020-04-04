@@ -11,14 +11,11 @@ Start the client:
 ## Running the Server ##
 #### Guide
 ```sh
-pip3 install pipenv
 cd server
 python3 -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
 export FLASK_APP=wsgi.py
-export FLASK_ENV=development
-#export APP_CONFIG_FILE="config.py" # in progress
 flask run
 pip3 freeze > requirements.txt
 ```

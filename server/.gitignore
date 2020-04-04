@@ -1,4 +1,4 @@
-# from flask site
+# from flask doc
 venv/
 
 *.pyc
@@ -13,3 +13,7 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+
+
+# internal
+.env.prod
