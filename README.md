@@ -8,14 +8,7 @@ Navigate to the client folder and install the node modules:
 Start the client:
 `npm start` or `yarn start`
 
-## Running the Server ##
-#### Guide
+## Running the Server
 ```sh
-cd server
-python3 -m venv venv
-source venv/bin/activate
-pip3 install -r requirements.txt
-export FLASK_APP=wsgi.py
-flask run
-pip3 freeze > requirements.txt
+cd server && . start.sh
 ```

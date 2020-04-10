@@ -4,7 +4,7 @@ from os import environ
 
 class Config:
     """Set Flask configuration vars from .env file."""
-    FLASK_APP = environ.get('FLASK_APP')
+    # FLASK_APP = environ.get('FLASK_APP')
     SQLALCHEMY_TRACK_MODIFICATIONS = environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
 
 
