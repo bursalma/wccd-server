@@ -9,7 +9,7 @@ class Config:
 
 
 class ProdConfig(Config):
-    FLASK_ENV  = environ.get('PROD_FLASK_ENV')
+    FLASK_ENV = environ.get('PROD_FLASK_ENV')
     TESTING    = False
     SECRET_KEY = environ.get('PROD_SECRET_KEY')
     SESSION_COOKIE_NAME     = environ.get('PROD_SESSION_COOKIE_NAME')
@@ -17,7 +17,8 @@ class ProdConfig(Config):
 
 
 class DevConfig(Config):
-    FLASK_ENV  = environ.get('DEV_FLASK_ENV')
+    FLASK_ENV = environ.get('DEV_FLASK_ENV')
+    # DEBUG = True
     TESTING    = False
     SECRET_KEY = environ.get('DEV_SECRET_KEY')
     SESSION_COOKIE_NAME     = environ.get('DEV_SESSION_COOKIE_NAME')
