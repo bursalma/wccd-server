@@ -7,3 +7,8 @@ Navigate to the client folder and install the node modules:
 
 Start the client:
 `npm start` or `yarn start`
+
+## Running the Server
+```sh
+cd server && . start.sh
+```
