@@ -1,0 +1,5 @@
+docker run --name=ali -e POSTGRES_PASSWORD=12e -p 5432:5432 --restart=unless-stopped -d postgres
+sudo apt-get install postgresql-client
+psql -h localhost -U postgres -d white_collar
+create database "white_collar";
+\c white_collar

@@ -1,20 +1,23 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
+from os import path, getcwd
 
 db = SQLAlchemy()
 
 # FLASK_APP="wsgi:create_app('prod')"
-def create_app(env='dev'):
+def create_app():
 
     app = Flask(__name__, instance_relative_config=False)
+
+    env_path = path.dirname(getcwd()) + '/.env.prod'
     load_dotenv()
-    if env == 'dev':
-        app.config.from_object('config.DevConfig')
-    elif env == 'prod':
-        app.config.from_object('config.ProdConfig')
-    else:
-        return 'Invalid flask app parameter'
+    load_dotenv(dotenv_path=env_path)
+
+    # app.config.from_object('config.DevConfig')
+
+    app.config.from_object('config.ProdConfig')
+    
     db.init_app(app)
 
     with app.app_context():
