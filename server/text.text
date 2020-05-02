@@ -1,8 +1,2 @@
-
-
-DEV_FLASK_ENV=development
-DEV_SECRET_KEY=_5#y2L"F4Q8z\n\xec]/
-DEV_SESSION_COOKIE_NAME=my_cookie
-DEV_DATABASE_URI=sqlite://
-
 192.168.56.102
+PROD_DATABASE_URI=mysql://root:12e@localhost/white_collar

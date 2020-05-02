@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from dotenv import load_dotenv
 from os import path, getcwd
 
 db = SQLAlchemy()
@@ -10,13 +9,11 @@ def create_app():
 
     app = Flask(__name__, instance_relative_config=False)
 
-    env_path = path.dirname(getcwd()) + '/.env.prod'
-    load_dotenv()
-    load_dotenv(dotenv_path=env_path)
-
     # app.config.from_object('config.DevConfig')
 
     app.config.from_object('config.ProdConfig')
+
+    print(app.config)
     
     db.init_app(app)
 
@@ -32,7 +29,6 @@ def create_app():
         app.register_blueprint(specialist_routes.specialist_bp)
         app.register_blueprint(viewer_routes.viewer_bp)
 
-        # Create tables for our models
         db.create_all()
 
         return app
