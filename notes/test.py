@@ -207,3 +207,9 @@
 #     db.create_all()
 #     if 'liveconsole' not in gethostname():
 #         app.run()
+
+
+
+# env_path = path.dirname(getcwd()) + '/.env.prod'
+# print(env_path)
+# load_dotenv(dotenv_path=env_path)

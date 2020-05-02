@@ -10,5 +10,11 @@ Start the client:
 
 ## Running the Server
 ```sh
-cd server && . start.sh
+cd server
+python3 -m venv venv #first time only
+. venv/bin/activate
+pip3 install -r requirements.txt
+export FLASK_ENV=development #for dev mode
+flask run
+pip3 freeze > requirements.txt #if made updates
 ```

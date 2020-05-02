@@ -1,0 +1,2 @@
+192.168.56.102
+PROD_DATABASE_URI=mysql://root:12e@localhost/white_collar

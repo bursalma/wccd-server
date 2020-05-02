@@ -1,15 +1,18 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from dotenv import load_dotenv
+from os import environ
 
 db = SQLAlchemy()
-
 
 def create_app():
 
     app = Flask(__name__, instance_relative_config=False)
-    load_dotenv()
-    app.config.from_object('config.DevConfig')
+
+    if environ.get('FLASK_ENV') == 'development':
+        app.config.from_object('config.DevConfig')
+    else:
+        app.config.from_object('config.ProdConfig')
+    
     db.init_app(app)
 
     with app.app_context():
@@ -24,7 +27,6 @@ def create_app():
         app.register_blueprint(specialist_routes.specialist_bp)
         app.register_blueprint(viewer_routes.viewer_bp)
 
-        # Create tables for our models
         db.create_all()
 
         return app

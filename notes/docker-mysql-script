@@ -16,6 +16,7 @@ docker run \
     -p 3306:3306 \
     --restart=unless-stopped \
     -d mysql
+docker run --name=alim -e MYSQL_ROOT_PASSWORD=12e -p 3306:3306 --restart=unless-stopped -d mysql
 docker ps
 docker logs ali
 docker inspect ali
