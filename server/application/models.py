@@ -4,7 +4,7 @@ from . import db
 class User(db.Model):
     """Data model for user accounts."""
 
-    __tablename__ = 'flasksqlalchemy-users'
+    __tablename__ = 'user'
     id = db.Column(db.Integer,
                    primary_key=True)
     username = db.Column(db.String(64),
@@ -19,10 +19,6 @@ class User(db.Model):
                         index=False,
                         unique=False,
                         nullable=False)
-    bio = db.Column(db.Text,
-                    index=False,
-                    unique=False,
-                    nullable=True)
     admin = db.Column(db.Boolean,
                       index=False,
                       unique=False,

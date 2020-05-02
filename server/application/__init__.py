@@ -2,9 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import environ
 
-
 db = SQLAlchemy()
-
 
 def create_app():
 

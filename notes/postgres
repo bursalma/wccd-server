@@ -3,3 +3,7 @@ sudo apt-get install postgresql-client
 psql -h localhost -U postgres -d white_collar
 create database "white_collar";
 \c white_collar
+
+\d
+
+drop table "users";
