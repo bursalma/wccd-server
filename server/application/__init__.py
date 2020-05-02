@@ -1,19 +1,19 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from os import path, getcwd
+from os import environ
+
 
 db = SQLAlchemy()
 
-# FLASK_APP="wsgi:create_app('prod')"
+
 def create_app():
 
     app = Flask(__name__, instance_relative_config=False)
 
-    # app.config.from_object('config.DevConfig')
-
-    app.config.from_object('config.ProdConfig')
-
-    print(app.config)
+    if environ.get('FLASK_ENV') == 'development':
+        app.config.from_object('config.DevConfig')
+    else:
+        app.config.from_object('config.ProdConfig')
     
     db.init_app(app)
 
