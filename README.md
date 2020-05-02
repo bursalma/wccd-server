@@ -12,7 +12,7 @@ Start the client:
 ```sh
 cd server
 python3 -m venv venv #first time only
-. venv/bin/activate
+. venv/bin/activate #source venv/Scripts/activate
 pip3 install -r requirements.txt
 export FLASK_ENV=development #for dev mode
 flask run
