@@ -46,8 +46,6 @@ def create_user():
 
 
 
-
-
 # @main_bp.route("/users", methods=['GET'])
 # def get_users():
 #     users = User.query.all()
