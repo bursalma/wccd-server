@@ -42,6 +42,7 @@ def create_user():
             'email': each_user.email
         })
 
+
     return make_response(jsonify(response), 200, headers)
 
 
