@@ -5,7 +5,7 @@ import {
   Modal
 } from 'semantic-ui-react';
 
-import './home-page.component.css';
+import './home-page.styles.css';
 
 class HomePage extends React.Component {
   constructor(props) {

@@ -9,16 +9,6 @@ import {
 
 const PersonalInformationForm = ({ options, values, nextStep, handleChange }) => {
 
-  const saveAndContinue = (e) => {
-    e.preventDefault();
-    nextStep();
-  }
-
-  // const goBack = (e) => {
-  //   e.preventDefault();
-  //   prevStep();
-  // }
-
   return (
     <Form className='form'>
       <Header as='h2'>Convict Information</Header>
@@ -28,24 +18,27 @@ const PersonalInformationForm = ({ options, values, nextStep, handleChange }) =>
           control={Input} 
           placeholder='First Name' 
           width={6} 
-          onChange={handleChange('firstName')}
-          //defaultValue={values.firstName}
+          onChange={handleChange}
+          defaultValue={values.firstName}
+          name='firstName'
         />
         <Form.Field
           key='middleName'
           control={Input} 
           placeholder='Middle Name' 
           width={4}
-          onChange={handleChange('middleName')}
+          onChange={handleChange}
           defaultValue={values.middleName}
+          name='middleName'
         />
         <Form.Field
           key='lastName'
           control={Input} 
           placeholder='Last Name' 
           width={6}
-          onChange={handleChange('lastName')}
+          onChange={handleChange}
           defaultValue={values.lastName}
+          name='lastName'
         />
       </Form.Group>
       <Form.Group>
@@ -55,8 +48,9 @@ const PersonalInformationForm = ({ options, values, nextStep, handleChange }) =>
           options={options}
           placeholder='Sex'
           width={4}
-          onChange={handleChange('sex')}
+          onChange={handleChange}
           defaultValue={values.sex}
+          name='sex'
         />
         <Form.Field
           key='race'
@@ -64,8 +58,9 @@ const PersonalInformationForm = ({ options, values, nextStep, handleChange }) =>
           options={options}
           placeholder='Race'
           width={6}
-          onChange={handleChange('race')}
+          onChange={handleChange}
           defaultValue={values.race}
+          name='race'
         />
         <Form.Field
           key='nationality'
@@ -73,8 +68,9 @@ const PersonalInformationForm = ({ options, values, nextStep, handleChange }) =>
           options={options}
           placeholder='Nationality'
           width={6}
-          onChange={handleChange('nationality')}
+          onChange={handleChange}
           defaultValue={values.nationality}
+          name='nationality'
         />
       </Form.Group>
       <Form.Group>
@@ -84,8 +80,9 @@ const PersonalInformationForm = ({ options, values, nextStep, handleChange }) =>
           options={options}
           placeholder='Age Group'
           width={6}
-          onChange={handleChange('ageGroup')}
+          onChange={handleChange}
           defaultValue={values.ageGroup}
+          name='ageGroup'
         />
         <Form.Field
           key='company'
@@ -93,8 +90,9 @@ const PersonalInformationForm = ({ options, values, nextStep, handleChange }) =>
           options={options}
           placeholder='Company'
           width={6}
-          onChange={handleChange('company')}
+          onChange={handleChange}
           defaultValue={values.company}
+          name='company'
         />
         <Form.Field
           key='affiliation'
@@ -102,12 +100,14 @@ const PersonalInformationForm = ({ options, values, nextStep, handleChange }) =>
           options={options}
           placeholder='Affiliation'
           width={4}
-          onChange={handleChange('affiliation')}
+          onChange={handleChange}
           defaultValue={values.affiliation}
+          name='affiliation'
         />
       </Form.Group>
-      {/* <Button onClick={goBack} secondary>Back</Button> */}
-      <Button onClick={saveAndContinue} primary>Save & Continue</Button>
+      <div className='form-navigation-buttons'>
+        <Button content='Next' icon='right arrow' labelPosition='right' floated='right' onClick={nextStep}/>
+      </div>
     </Form>
   )
 }

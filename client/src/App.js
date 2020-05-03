@@ -3,20 +3,30 @@ import {
   BrowserRouter as Router,
   Route
 } from 'react-router-dom';
+import { withAuthentication, AuthUserContext } from './components/session';
+
 import HomePage from './pages/HomePage/home-page.component';
+import LoginPage from './pages/LoginPage/login-page.component';
 
 import './App.css';
 
 import 'semantic-ui-css/semantic.min.css'
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Router>
-        <Route exact path='/' component={HomePage} />
+        <AuthUserContext.Consumer>
+        { 
+          authUser =>
+            authUser ?
+            <Route exact path='/' component={HomePage} /> :
+            <Route exact path='/' component={LoginPage} />
+        }
+        </AuthUserContext.Consumer>
       </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default withAuthentication(App);

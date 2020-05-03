@@ -3,5 +3,9 @@
 }
 
 .form {
-  padding: 30px;
+  padding: 50px 40px 60px;
+}
+
+.form-navigation-buttons {
+  margin: 25px 0px;
 }
