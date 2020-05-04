@@ -1,7 +1,6 @@
 from . import db
 from datetime import datetime
 
-
 class Race(db.Model):
 
     __tablename__ = 'race'
@@ -28,3 +27,25 @@ class Nationality(db.Model):
 
     def __repr__(self):
         return '<Nationality {}>'.format(self.nationality)
+
+
+class Convict(db.Model):
+
+    __tablename__ = 'convict'
+    id = db.Column(db.Integer, primary_key=True)
+    last_name = db.Column(db.String(45))
+    first_name = db.Column(db.String(45))
+    middle_name = db.Column(db.String(45))
+    sex = db.Column(db.ENUM('male', 'female', name='sex'))
+    race_id = None
+    nationality_id = None
+    last_update = db.Column(db.DateTime, onupdate=datetime.utcnow)
+
+    def __init__(self, last_name, first_name, middle_name, sex):
+        self.last_name = last_name
+        self.first_name = first_name
+        self.middle_name = middle_name
+        self.sex = sex
+
+    def __repr__(self):
+        return '<Convict {}>'.format(self.convict)

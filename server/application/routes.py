@@ -5,6 +5,22 @@ from .models import db, Race
 
 main_bp = Blueprint('main_bp', __name__)
 
+class Convict(MethodView):
+
+    def get(self, id):
+        return f"Responding to a GET request: {id}"
+
+    def post(self):
+        return f"Responding to a POST request:"
+
+    def delete(self, id):
+        return f"Responding to a delete request: {id}"
+
+main_bp.add_url_rule(
+    "/api/convict/<id>", 
+    view_func=Convict.as_view("convict"))
+
+
 class View(MethodView):
 
     def get(self, message):
