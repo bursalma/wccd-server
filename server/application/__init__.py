@@ -17,15 +17,11 @@ def create_app():
 
     with app.app_context():
 
-        from .              import routes
-        from .admin         import admin_routes
-        from .specialist    import specialist_routes
-        from .viewer        import viewer_routes
+        from .controllers import convict, race, nationality
 
-        app.register_blueprint(routes.main_bp)
-        app.register_blueprint(admin_routes.admin_bp)
-        app.register_blueprint(specialist_routes.specialist_bp)
-        app.register_blueprint(viewer_routes.viewer_bp)
+        app.register_blueprint(convict.convict_bp)
+        app.register_blueprint(race.race_bp)
+        app.register_blueprint(nationality.nationality_bp)
 
         db.create_all()
 
