@@ -1,9 +1,10 @@
+from .  import BaseModel
 from .. import db
 from datetime import datetime
 
 now = datetime.utcnow
 
-class Convict(db.Model):
+class Convict(db.Model, BaseModel):
 
     __tablename__ = 'convict'
     id          = db.Column(db.Integer, primary_key=True)
@@ -26,6 +27,7 @@ class Convict(db.Model):
 
     def get_dict(self):
         return {
+            'fields'     : ['id', 'last_name', 'first_name', 'middle_name', 'sex', 'race', 'nationality'],
             'id'         : self.id,
             'last_name'  : self.last_name,
             'first_name' : self.first_name,

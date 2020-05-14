@@ -9,13 +9,18 @@ race_bp = Blueprint('race_bp', __name__)
 
 class RaceAPI(MethodView):
 
-    def get(self, race_id):
-        if race_id != None:
-            return Race.query.get(race_id).get_dict()
+    def get(self, race):
+        if race != None:
+            race = Race.query.filter_by(race=race).first()
+            return race.get_dict()
+            # return {'race': race.race, 'children': race.get_children()}
+            # return Race.query.get(race).get_dict()
+
 
         all_races = {'races': []}
         
         for each_race in Race.query.all():
+            # all_races['races'].append({'race': each_race.race, 'children': each_race.get_children()})
             all_races['races'].append(each_race.get_dict())
 
         return all_races
@@ -23,9 +28,9 @@ class RaceAPI(MethodView):
 race_view = RaceAPI.as_view("race_api")
 race_bp.add_url_rule(
     '/race/', 
-    defaults={'race_id': None},
+    defaults={'race': None},
     view_func=race_view, 
     methods=['GET'])
-race_bp.add_url_rule('/race/<int:race_id>', 
+race_bp.add_url_rule('/race/<race>', 
     view_func=race_view,
     methods=['GET'])
