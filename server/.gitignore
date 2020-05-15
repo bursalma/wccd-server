@@ -19,3 +19,5 @@ build/
 .env*
 .flaskenv*
 .vscode
+uwsgi.log
+locustfile.py
