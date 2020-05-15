@@ -2,8 +2,8 @@ from flask       import Blueprint, request
 from flask.views import MethodView
 
 from ..                  import db
-from ..models.race        import Race
-from ..models.convict     import Convict
+from ..model.race        import Race
+from ..model.convict     import Convict
 
 race_bp = Blueprint('race_bp', __name__)
 

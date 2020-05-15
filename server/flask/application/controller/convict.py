@@ -2,9 +2,9 @@ from flask       import Blueprint, request, jsonify, make_response
 from flask.views import MethodView
 
 from ..                   import db
-from ..models.convict     import Convict
-from ..models.race        import Race
-from ..models.nationality import Nationality
+from ..model.convict     import Convict
+from ..model.race        import Race
+from ..model.nationality import Nationality
 
 convict_bp = Blueprint('convict_bp', __name__)
 

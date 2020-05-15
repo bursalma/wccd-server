@@ -2,8 +2,8 @@ from flask       import Blueprint, request
 from flask.views import MethodView
 
 from ..                   import db
-from ..models.nationality import Nationality
-from ..models.convict     import Convict
+from ..model.nationality import Nationality
+from ..model.convict     import Convict
 
 nationality_bp = Blueprint('nationality_bp', __name__)
 

@@ -19,7 +19,7 @@ def create_app():
 
     with app.app_context():
 
-        from .controllers import convict, race, nationality
+        from .controller import convict, race, nationality
 
         app.register_blueprint(convict.convict_bp)
         app.register_blueprint(race.race_bp)
