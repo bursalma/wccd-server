@@ -8,6 +8,8 @@ def create_app():
 
     app = Flask(__name__, instance_relative_config=False)
 
+    # app.config.from_object('config.DevConfig')
+
     if environ.get('FLASK_ENV') == 'development':
         app.config.from_object('config.DevConfig')
     else:
