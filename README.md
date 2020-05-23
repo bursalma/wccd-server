@@ -10,7 +10,7 @@ Start the client:
 
 ## Running the Server
 ```sh
-cd server
+cd server/flask
 python3 -m venv venv #first time only
 . venv/bin/activate #source venv/Scripts/activate
 pip3 install -r requirements.txt

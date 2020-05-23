@@ -8,8 +8,6 @@ def create_app():
 
     app = Flask(__name__, instance_relative_config=False)
 
-    # app.config.from_object('config.DevConfig')
-
     if environ.get('FLASK_ENV') == 'development':
         app.config.from_object('config.DevConfig')
     else:
@@ -19,12 +17,14 @@ def create_app():
 
     with app.app_context():
 
-        from .controllers import convict, race, nationality
+        from .controller import convict, race, nationality
+        from .data       import insert
 
         app.register_blueprint(convict.convict_bp)
         app.register_blueprint(race.race_bp)
         app.register_blueprint(nationality.nationality_bp)
 
         db.create_all()
+        insert()
 
         return app

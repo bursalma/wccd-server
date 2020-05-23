@@ -1,7 +1,6 @@
 """Flask config class."""
 from os import environ
 
-
 class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
