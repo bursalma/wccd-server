@@ -18,13 +18,22 @@ def create_app():
     with app.app_context():
 
         from .controller import convict, race, nationality
-        from .data       import insert
 
         app.register_blueprint(convict.convict_bp)
         app.register_blueprint(race.race_bp)
         app.register_blueprint(nationality.nationality_bp)
 
         db.create_all()
-        insert()
+
+        from .data import race, nationality
+
+        race.initial_insert()
+        nationality.initial_insert()
 
         return app
+
+
+# def common(app):
+#     @app.errorhandler(404)
+#     def not_found(error):
+#         return {'hi':'hey'}, 404

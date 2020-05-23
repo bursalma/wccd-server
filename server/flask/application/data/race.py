@@ -1,7 +1,7 @@
-from flask import url_for
+from .            import base_insert
+from ..model.race import Race
 
-from ..controller.race import RaceAPI
-
-def insert_race():
-
+def initial_insert():
     races = ['Asian', 'Black', 'Hispanic', 'White', 'Other', 'NOT REPORTED']
+
+    base_insert(races, Race)

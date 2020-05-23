@@ -1,7 +1,5 @@
-from flask       import Blueprint, request
-from flask.views import MethodView
-
-from .            import base_rule, BaseAPI
+from flask        import Blueprint, request
+from .            import BaseAPI, base_rule
 from ..           import db
 from ..model.race import Race
 
@@ -13,25 +11,13 @@ class RaceAPI(BaseAPI):
         self.name  = 'race'
         self.model = Race
 
-    def post(self):
-        race = Race(request.json.get('race'))
-
-        db.session.add(race)
-        db.session.commit()
-        return race.get_dict()
-
-    def delete(self, id):
-        db.session.delete(Race.query.get(id))
-        db.session.commit()
-        return {'id': id}
-
     def put(self, id):
-        race = Race.query.get(id)
-        val  = request.json.get('race')
+        record = self.model.query.get(id)
+        val    = request.json.get(self.name)
 
-        if val: race.race = val
+        if val: record.race = val #fix this
 
         db.session.commit()
-        return race.get_dict()
+        return record.get_dict()
 
 base_rule(race_bp, RaceAPI, 'race')

@@ -1,9 +1,7 @@
-from .race        import insert_race
-from .nationality import insert_nationality
+from .. import db
 
-def insert():
-    insert_race()
-    insert_nationality()
+def base_insert(data, model):
+    for item in data:
+        db.session.add(model(item))
 
-def post():
-    pass
+    db.session.commit()

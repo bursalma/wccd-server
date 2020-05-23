@@ -13,6 +13,7 @@ class Convict(db.Model, BaseModel):
     middle_name = db.Column(db.String(45))
     sex         = db.Column(db.String(10))
     last_update = db.Column(db.DateTime, default=now, onupdate=now)
+    
     race_id        = db.Column(db.Integer, db.ForeignKey('race.id'))
     nationality_id = db.Column(db.Integer, db.ForeignKey('nationality.id'))
 
