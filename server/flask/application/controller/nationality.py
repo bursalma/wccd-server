@@ -1,31 +1,39 @@
 from flask       import Blueprint, request
 from flask.views import MethodView
 
-from ..                   import db
+from .                   import base_rule, BaseAPI
+from ..                  import db
 from ..model.nationality import Nationality
-from ..model.convict     import Convict
 
 nationality_bp = Blueprint('nationality_bp', __name__)
 
-class NationalityAPI(MethodView):
+class NationalityAPI(BaseAPI):
 
-    def get(self, nationality_id):
-        if nationality_id != None:
-            return Nationality.query.get(nationality_id).get_dict()
+    def __init__(self):
+        self.name  = 'nationality'
+        self.model = Nationality
 
-        all_nationalities = {'nationalities': []}
-        
-        for each_nationality in Nationality.query.all():
-            all_nationalities['nationalities'].append(each_nationality.get_dict())
+    def post(self):
+        body = request.json.get
 
-        return all_nationalities
+        nationality = Nationality(body('nationality'))
 
-nationality_view = NationalityAPI.as_view("nationality_api")
-nationality_bp.add_url_rule(
-    '/nationality/', 
-    defaults={'nationality_id': None},
-    view_func=nationality_view, 
-    methods=['GET'])
-nationality_bp.add_url_rule('/nationality/<int:nationality_id>', 
-    view_func=nationality_view,
-    methods=['GET'])
+        db.session.add(nationality)
+        db.session.commit()
+        return nationality.get_dict()
+
+    def delete(self, id):
+        db.session.delete(Nationality.query.get(id))
+        db.session.commit()
+        return {'id': id}
+
+    def put(self, id):
+        nationality = Nationality.query.get(id)
+        body        = request.json.get
+
+        if body('nationality'): nationality.nationality = body('nationality')
+
+        db.session.commit()
+        return nationality.get_dict()
+
+base_rule(nationality_bp, NationalityAPI, 'nationality')

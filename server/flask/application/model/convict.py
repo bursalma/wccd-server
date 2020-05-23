@@ -13,7 +13,7 @@ class Convict(db.Model, BaseModel):
     middle_name = db.Column(db.String(45))
     sex         = db.Column(db.String(10))
     last_update = db.Column(db.DateTime, default=now, onupdate=now)
-    race_id     = db.Column(db.Integer, db.ForeignKey('race.id'))
+    race_id        = db.Column(db.Integer, db.ForeignKey('race.id'))
     nationality_id = db.Column(db.Integer, db.ForeignKey('nationality.id'))
 
     def __init__(self, last_name, first_name, middle_name, sex):
@@ -27,12 +27,11 @@ class Convict(db.Model, BaseModel):
 
     def get_dict(self):
         return {
-            'fields'     : ['id', 'last_name', 'first_name', 'middle_name', 'sex', 'race', 'nationality'],
             'id'         : self.id,
             'last_name'  : self.last_name,
             'first_name' : self.first_name,
             'middle_name': self.middle_name,
             'sex'        : self.sex,
-            'race'       : self.race.race,
-            'nationality': self.nationality.nationality
+            'race'       : self.race.id,
+            'nationality': self.nationality.id
         }

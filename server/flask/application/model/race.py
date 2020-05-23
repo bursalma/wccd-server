@@ -20,7 +20,6 @@ class Race(db.Model, BaseModel):
 
     def get_dict(self):
         return {
-            'fields': ['id', 'race'],
             'id'    : self.id,
             'race'  : self.race 
         }

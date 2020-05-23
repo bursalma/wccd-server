@@ -1,36 +1,37 @@
 from flask       import Blueprint, request
 from flask.views import MethodView
 
-from ..                  import db
-from ..model.race        import Race
-from ..model.convict     import Convict
+from .            import base_rule, BaseAPI
+from ..           import db
+from ..model.race import Race
 
 race_bp = Blueprint('race_bp', __name__)
 
-class RaceAPI(MethodView):
+class RaceAPI(BaseAPI):
 
-    def get(self, race):
-        if race != None:
-            race = Race.query.filter_by(race=race).first()
-            return race.get_dict()
-            # return {'race': race.race, 'children': race.get_children()}
-            # return Race.query.get(race).get_dict()
+    def __init__(self):
+        self.name  = 'race'
+        self.model = Race
 
+    def post(self):
+        race = Race(request.json.get('race'))
 
-        all_races = {'races': []}
-        
-        for each_race in Race.query.all():
-            # all_races['races'].append({'race': each_race.race, 'children': each_race.get_children()})
-            all_races['races'].append(each_race.get_dict())
+        db.session.add(race)
+        db.session.commit()
+        return race.get_dict()
 
-        return all_races
+    def delete(self, id):
+        db.session.delete(Race.query.get(id))
+        db.session.commit()
+        return {'id': id}
 
-race_view = RaceAPI.as_view("race_api")
-race_bp.add_url_rule(
-    '/race/', 
-    defaults={'race': None},
-    view_func=race_view, 
-    methods=['GET'])
-race_bp.add_url_rule('/race/<race>', 
-    view_func=race_view,
-    methods=['GET'])
+    def put(self, id):
+        race = Race.query.get(id)
+        val  = request.json.get('race')
+
+        if val: race.race = val
+
+        db.session.commit()
+        return race.get_dict()
+
+base_rule(race_bp, RaceAPI, 'race')
