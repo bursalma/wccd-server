@@ -35,6 +35,6 @@ class Convict(db.Model, BaseModel):
             'first_name' : self.first_name,
             'middle_name': self.middle_name,
             'sex'        : self.sex,
-            'race'       : self.race.id,
-            'nationality': self.nationality.id
+            'race'       : self.race_id,
+            'nationality': self.nationality_id
         }

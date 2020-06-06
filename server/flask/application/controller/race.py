@@ -7,17 +7,16 @@ race_bp = Blueprint('race_bp', __name__)
 
 class RaceAPI(BaseAPI):
 
-    def __init__(self):
-        self.name  = 'race'
-        self.model = Race
+    model = Race
+    name  = Race.__tablename__
 
     def put(self, id):
-        record = self.model.query.get(id)
-        val    = request.json.get(self.name)
+        req    = request.json.get
+        record = self.query(id)
 
-        if val: record.race = val #fix this
+        if req(self.name): record.race = req(self.name)
 
         db.session.commit()
         return record.get_dict()
 
-base_rule(race_bp, RaceAPI, 'race')
+base_rule(race_bp, RaceAPI)

@@ -1,7 +1,7 @@
-from flask       import Blueprint, request, jsonify, make_response
+from flask       import Blueprint, request, jsonify, make_response, abort
 from flask.views import MethodView
-from .  import base_rule, BaseAPI
-from .. import db
+from .                   import base_rule, BaseAPI
+from ..                  import db
 from ..model.convict     import Convict
 from ..model.race        import Race
 from ..model.nationality import Nationality
@@ -9,49 +9,39 @@ from ..model.nationality import Nationality
 convict_bp = Blueprint('convict_bp', __name__)
 
 class ConvictAPI(BaseAPI):
+    
+    model = Convict
+    name  = Convict.__tablename__
 
-    def __init__(self):
-        self.name  = 'convict'
-        self.model = Convict
+    def append(self, record, req, model):
+        if req(model.__tablename__):
+            parent = self.query(req(model.__tablename__), model)
+            parent.convicts.append(record)
             
     def post(self):
-        body = request.json.get
+        req    = request.json.get
+        record = Convict(req('last_name'),   req('first_name'), 
+                         req('middle_name'), req('sex'))
 
-        convict = Convict(body('last_name'), body('first_name'), body('middle_name'), body('sex'))
+        self.append(record, req, Race)
+        self.append(record, req, Nationality)
 
-        race = Race.query.get(body('race'))
-        race.convicts.append(convict)
-
-        nationality = Nationality.query.get(body('nationality'))
-        nationality.convicts.append(convict)
-
-        db.session.add(convict)
         db.session.commit()
-        return convict.get_dict()
-
-    def delete(self, id):
-        db.session.delete(Convict.query.get(id))
-        db.session.commit()
-        return {'id': id}
+        return record.get_dict()
 
     def put(self, id):
-        convict = Convict.query.get(id)
-        body    = request.json.get
+        req    = request.json.get
+        record = self.query(id)
 
-        if body('last_name')  : convict.last_name   = body('last_name')
-        if body('first_name') : convict.first_name  = body('first_name')
-        if body('middle_name'): convict.middle_name = body('middle_name')
-        if body('sex')        : convict.sex         = body('sex')
+        if req('last_name')  : record.last_name   = req('last_name')
+        if req('first_name') : record.first_name  = req('first_name')
+        if req('middle_name'): record.middle_name = req('middle_name')
+        if req('sex')        : record.sex         = req('sex')
 
-        if body('race'): 
-            race = Race.query.get(body('race'))
-            race.convicts.append(convict)
-
-        if body('nationality'): 
-            nationality = Nationality.query.get(body('nationality'))
-            nationality.convicts.append(convict)
+        self.append(record, req, Race)
+        self.append(record, req, Nationality)
 
         db.session.commit()
-        return convict.get_dict()
+        return record.get_dict()
 
-base_rule(convict_bp, ConvictAPI, 'convict')
+base_rule(convict_bp, ConvictAPI)
