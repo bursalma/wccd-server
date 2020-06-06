@@ -25,10 +25,9 @@ def create_app():
 
         db.create_all()
 
-        from .data import race, nationality
-
-        race.initial_insert()
-        nationality.initial_insert()
+        from .data import initial_insert
+        
+        initial_insert()
 
         return app
 

@@ -1,6 +1,8 @@
 from .  import BaseModel
 from .. import db
 from datetime import datetime
+from ..model.race        import Race
+from ..model.nationality import Nationality
 
 now = datetime.utcnow
 
@@ -22,7 +24,7 @@ class Convict(db.Model, BaseModel):
         self.first_name  = first_name
         self.middle_name = middle_name
         self.sex         = sex
-
+        
     def __repr__(self):
         return f'<Convict {self.last_name}, {self.first_name}>'
 

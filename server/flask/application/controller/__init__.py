@@ -2,8 +2,6 @@ from flask.views import MethodView
 from flask       import request, abort
 from ..          import db
 
-# products = Product.query.paginate(page, 10).items
-
 class BaseAPI(MethodView):
 
     def __init__(self):
@@ -53,3 +51,5 @@ def base_rule(bp, api, endpoint):
         f'/{endpoint}/<int:id>', 
         view_func=view,
         methods=['GET', 'PUT', 'DELETE'])
+
+# products = Product.query.paginate(page, 10).items

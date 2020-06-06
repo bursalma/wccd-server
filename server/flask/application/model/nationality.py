@@ -24,10 +24,10 @@ class Nationality(db.Model, BaseModel):
             'nationality': self.nationality 
         }
     
-    def get_children(self):
-        all_convicts = {'convicts': []}
+    # def get_children(self):
+    #     all_convicts = {'convict': []}
         
-        for each_convict in self.convicts:
-            all_convicts['convicts'].append(each_convict.id)
+    #     for each_convict in self.convicts:
+    #         all_convicts['convict'].append(each_convict.id)
 
-        return all_convicts
+    #     return all_convicts

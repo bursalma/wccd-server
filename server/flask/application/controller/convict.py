@@ -1,8 +1,7 @@
 from flask       import Blueprint, request, jsonify, make_response
 from flask.views import MethodView
-
-from .                   import base_rule, BaseAPI
-from ..                  import db
+from .  import base_rule, BaseAPI
+from .. import db
 from ..model.convict     import Convict
 from ..model.race        import Race
 from ..model.nationality import Nationality
