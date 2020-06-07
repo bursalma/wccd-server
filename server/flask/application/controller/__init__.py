@@ -1,16 +1,44 @@
 from flask.views import MethodView
 from flask       import request, abort
+from typing      import List
 from ..          import db
+
+# fix delete for conviction
 
 class BaseAPI(MethodView):
 
-    name : str
-    model: db.Model
+    model  : db.Model
+    name   : str
+    fields : List[str]
+    foreign: List[db.Model]
+    backref: str
 
     def query(self, id, model=None):
         row = (model if model else self.model).query.get(id)
         if not row: abort(404)
         return row
+
+    def append(self, row, id, model):
+        if id:
+            parent = self.query(id, model)
+            getattr(parent, self.backref).append(row)
+
+    def set_request_fields(self, row):
+        req = request.json.get
+
+        if getattr(self, 'fields', None):
+            for field in self.fields: 
+                if req(field): setattr(row, field, req(field))
+        else:
+            if req(self.name): setattr(row, self.name, req(self.name))
+
+        if getattr(self, 'foreign', None):
+            for model in self.foreign:
+                self.append(row, req(model.__tablename__), model)
+
+        db.session.add(row)
+        db.session.commit()
+        return self.query(row.id).get_dict()
 
     def get(self, id):
         if id: return self.query(id).get_dict()
@@ -21,12 +49,10 @@ class BaseAPI(MethodView):
         return all_rows
 
     def post(self):
-        row = self.model()
-        setattr(row, self.name, request.json.get(self.name))
+        return self.set_request_fields(self.model())
 
-        db.session.add(row)
-        db.session.commit()
-        return self.query(row.id).get_dict()
+    def put(self, id):
+        return self.set_request_fields(self.query(id))
 
     def delete(self, id):
         db.session.delete(self.query(id))

@@ -23,7 +23,7 @@ def create_app():
         app.register_blueprint(race.race_bp)
         app.register_blueprint(nationality.nationality_bp)
         app.register_blueprint(convict.convict_bp)
-        # app.register_blueprint(conviction.conviction_bp)
+        app.register_blueprint(conviction.conviction_bp)
 
         db.create_all()
 
@@ -32,7 +32,6 @@ def create_app():
         initial_insert()
 
         return app
-
 
 # def common(app):
 #     @app.errorhandler(404)

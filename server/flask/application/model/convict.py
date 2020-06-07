@@ -15,4 +15,4 @@ class Convict(db.Model, BaseModel):
     last_update = db.Column(db.DateTime, default=now, onupdate=now)
     race_id     = db.Column(db.Integer, db.ForeignKey('race.id'))
     nationality_id = db.Column(db.Integer, db.ForeignKey('nationality.id'))
-    # convictions = db.relationship('Conviction', backref='convict')
+    convictions = db.relationship('Conviction', backref='convict')
