@@ -1,6 +1,6 @@
-from flask import Flask
+from flask            import Flask
 from flask_sqlalchemy import SQLAlchemy
-from os import environ
+from os               import environ
 
 db = SQLAlchemy()
 
@@ -17,11 +17,13 @@ def create_app():
 
     with app.app_context():
 
-        from .controller import convict, race, nationality
+        from .controller import race, nationality, convict, \
+                                conviction
 
-        app.register_blueprint(convict.convict_bp)
         app.register_blueprint(race.race_bp)
         app.register_blueprint(nationality.nationality_bp)
+        app.register_blueprint(convict.convict_bp)
+        # app.register_blueprint(conviction.conviction_bp)
 
         db.create_all()
 

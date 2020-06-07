@@ -8,22 +8,25 @@ class BaseAPI(MethodView):
     model: db.Model
 
     def query(self, id, model=None):
-        record = (model if model else self.model).query.get(id)
-        if not record: abort(404)
-        return record
+        row = (model if model else self.model).query.get(id)
+        if not row: abort(404)
+        return row
 
     def get(self, id):
         if id: return self.query(id).get_dict()
 
-        all_records = {self.name: []}
+        all_rows = {self.name: []}
         for each in self.model.query.all():
-            all_records[self.name].append(each.get_dict())
-        return all_records
+            all_rows[self.name].append(each.get_dict())
+        return all_rows
 
     def post(self):
-        record = self.model(request.json.get(self.name))
+        row = self.model()
+        setattr(row, self.name, request.json.get(self.name))
+
+        db.session.add(row)
         db.session.commit()
-        return record.get_dict()
+        return self.query(row.id).get_dict()
 
     def delete(self, id):
         db.session.delete(self.query(id))
@@ -42,4 +45,3 @@ def base_rule(bp, api):
         methods=['GET', 'PUT', 'DELETE'], view_func=view)
 
 # products = Product.query.paginate(page, 10).items
-# db.session.add(record)

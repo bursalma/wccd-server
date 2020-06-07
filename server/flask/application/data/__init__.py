@@ -1,13 +1,13 @@
 from yaml import safe_load as yaml_safe_load
-
-from .. import db
-from ..model.race import Race
+from ..                  import db
+from ..model.race        import Race
 from ..model.nationality import Nationality
 
 def base_insert(model, data):
     for item in data:
-        db.session.add(model(item))
-
+        row = model()
+        setattr(row, row.__tablename__, item)
+        db.session.add(row)
     db.session.commit()
 
 
