@@ -15,7 +15,6 @@ def create_app():
     #     app.config.from_object('config.ProdConfig')
 
     app.config.from_object('config.DevConfig')
-
     db.init_app(app)
 
     with app.app_context():
@@ -30,7 +29,6 @@ def create_app():
 
         db.create_all()
         initial_insert()
-
         return app
 
 # def common(app):
