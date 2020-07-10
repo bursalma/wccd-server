@@ -1,1 +1,26 @@
+# from flask docs
+venv/
+
+*.pyc
+__pycache__/
+
+instance/
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+dist/
+build/
+*.egg-info/
+
+
+# internal
+.env*
+.flaskenv*
 .vscode
+uwsgi.log
+locustfile.py
+http.ini
+.vscode
+archive
