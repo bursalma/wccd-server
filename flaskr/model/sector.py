@@ -1,9 +1,5 @@
-from datetime import datetime
-
-from . import BaseModel
+from .base import BaseModel, now
 from .. import db
-
-now = datetime.utcnow
 
 
 class Sector(db.Model, BaseModel):

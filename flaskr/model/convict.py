@@ -1,9 +1,5 @@
-from datetime import datetime
-
-from . import BaseModel
+from .base import BaseModel, now
 from .. import db
-
-now = datetime.utcnow
 
 
 class Convict(db.Model, BaseModel):
@@ -16,4 +12,4 @@ class Convict(db.Model, BaseModel):
     last_update = db.Column(db.DateTime, default=now, onupdate=now)
     race_id = db.Column(db.Integer, db.ForeignKey('race.id'))
     nationality_id = db.Column(db.Integer, db.ForeignKey('nationality.id'))
-    convictions = db.relationship('Conviction', backref='convict')
+    all_conviction = db.relationship('Conviction', backref='convict')

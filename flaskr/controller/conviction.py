@@ -1,8 +1,8 @@
 from flask import Blueprint
 
-from . import BaseAPI, base_rule
-from application.model.conviction import Conviction
-from application.model.convict import Convict
+from .base import BaseAPI, base_rule
+from ..model.conviction import Conviction
+from ..model.convict import Convict
 
 conviction_bp = Blueprint('conviction_bp', __name__)
 

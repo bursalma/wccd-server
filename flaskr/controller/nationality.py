@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from . import BaseAPI, base_rule
+from .base import BaseAPI, base_rule
 from ..model.nationality import Nationality
 
 nationality_bp = Blueprint('nationality_bp', __name__)

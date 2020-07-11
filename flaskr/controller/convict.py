@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-from . import BaseAPI, base_rule
+from .base import BaseAPI, base_rule
 from ..model.convict import Convict
 from ..model.nationality import Nationality
 from ..model.race import Race
