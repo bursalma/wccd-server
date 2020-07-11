@@ -14,7 +14,7 @@ class ConvictionAPI(BaseAPI):
               'sentence', 'fine', 'decade', 'parole', 'summary', 'source_name',
               'source_url', 'source_date']
     foreign = [Convict]
-    backref = 'convictions'
+    backref = 'all_conviction'
 
 
 base_rule(conviction_bp, ConvictionAPI)

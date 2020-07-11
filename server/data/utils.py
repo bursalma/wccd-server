@@ -19,7 +19,7 @@ def base_insert(model: db.Model, data: List[str]) -> None:
 
 def data(file: str) -> List[str]:
     """Read yaml from data directory."""
-    with open('flaskr/data/' + file) as f:
+    with open('server/data/' + file) as f:
         return safe_load(f)
 
 

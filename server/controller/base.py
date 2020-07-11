@@ -28,7 +28,10 @@ class BaseAPI(MethodView):
             getattr(parent, self.backref).append(row)
 
     def set_request_fields(self, row: object) -> Dict[str, Union[str, int]]:
-        req = request.json.get
+        try:
+            req = request.json.get
+        except AttributeError:
+            abort(404)
 
         if getattr(self, 'fields', None):
             for field in self.fields:

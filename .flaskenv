@@ -1,1 +1,1 @@
-FLASK_APP=flaskr:create_app('dev')
+FLASK_APP=server:create_app('dev')

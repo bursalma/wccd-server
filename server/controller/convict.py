@@ -13,7 +13,7 @@ class ConvictAPI(BaseAPI):
     name = Convict.__tablename__
     fields = ['last_name', 'first_name', 'middle_name', 'sex']
     foreign = [Race, Nationality]
-    backref = 'convicts'
+    backref = 'all_convict'
 
 
 base_rule(convict_bp, ConvictAPI)
