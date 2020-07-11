@@ -6,7 +6,6 @@ Repository to develop the white-collar crime database app
 python3 -m venv venv #first time only
 . venv/bin/activate #source venv/Scripts/activate
 pip3 install -r requirements.txt
-export FLASK_ENV=development #for dev mode
 flask run
 pip3 freeze > requirements.txt #if made updates
 ```
