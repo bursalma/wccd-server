@@ -21,5 +21,4 @@ build/
 uwsgi.log
 locustfile.py
 http.ini
-.vscode
 archive
