@@ -1,5 +1,4 @@
-from .base import BaseModel, now
-from .. import db
+from .base import BaseModel, db, now
 
 
 class Race(db.Model, BaseModel):

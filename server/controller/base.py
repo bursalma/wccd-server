@@ -7,25 +7,15 @@ from .. import db
 
 
 class BaseAPI(MethodView):
-    """Base API class configures default http methods for all endpoints."""
+    """Base API class to configure default http methods for all endpoints."""
 
-    #: The following attributes represent parameters unique to each API
     model: db.Model
-    name: str
-    fields: List[str]
-    foreign: List[db.Model]
-    backref: str
 
-    def query(self, id: int, model: object = None) -> object:
+    def query(self, id: int, model: db.Model = None) -> object:
         row = (model if model else self.model).query.get(id)
         if not row:
             abort(404)
         return row
-
-    def append(self, row: object, id: int, model: object) -> None:
-        if id:
-            parent = self.query(id, model)
-            getattr(parent, self.backref).append(row)
 
     def set_request_fields(self, row: object) -> Dict[str, Union[str, int]]:
         try:
@@ -33,17 +23,21 @@ class BaseAPI(MethodView):
         except AttributeError:
             abort(404)
 
-        if getattr(self, 'fields', None):
-            for field in self.fields:
-                if req(field):
-                    setattr(row, field, req(field))
-        else:
-            if req(self.name):
-                setattr(row, self.name, req(self.name))
+        for field in self.model.fields():
+            if field[-3:] == '_id':
+                model = self.model.models()[field[:-3].title()]
+                id = req(model.__tablename__ + '_id')
 
-        if getattr(self, 'foreign', None):
-            for model in self.foreign:
-                self.append(row, req(model.__tablename__), model)
+                if id:
+                    parent = self.query(id, model)
+                    backref = f'all_{self.model.__tablename__}'
+                    getattr(parent, backref).append(row)
+            else:
+                if req(field):
+                    try:
+                        setattr(row, field, req(field))
+                    except AttributeError:
+                        abort(404)
 
         db.session.add(row)
         db.session.commit()
@@ -54,9 +48,9 @@ class BaseAPI(MethodView):
         if id:
             return self.query(id).get_dict()
 
-        all_rows = {self.name: []}
+        all_rows = {self.model.__tablename__: []}
         for each in self.model.query.all():
-            all_rows[self.name].append(each.get_dict())
+            all_rows[self.model.__tablename__].append(each.get_dict())
         return all_rows
 
     def post(self: int) -> Dict[str, Union[str, int]]:
@@ -71,15 +65,16 @@ class BaseAPI(MethodView):
         return {'id': id}
 
 
-def base_rule(bp: object, api: MethodView) -> None:
+def base_rule(bp: object, api: MethodView):
     """Configure default routing for all endpoints."""
-    view = api.as_view(f"{api.name}_api")
+    name = api.model.__tablename__
+    view = api.as_view(f"{name}_api")
 
-    bp.add_url_rule(f'/{api.name}/', defaults={'id': None},
+    bp.add_url_rule(f'/{name}/', defaults={'id': None},
                     methods=['GET'], view_func=view)
-    bp.add_url_rule(f'/{api.name}',
+    bp.add_url_rule(f'/{name}',
                     methods=['POST'], view_func=view)
-    bp.add_url_rule(f'/{api.name}/<int:id>',
+    bp.add_url_rule(f'/{name}/<int:id>',
                     methods=['GET', 'PUT', 'DELETE'], view_func=view)
 
 # products = Product.query.paginate(page, 10).items
