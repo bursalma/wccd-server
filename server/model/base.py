@@ -10,7 +10,7 @@ class BaseModel:
 
     _models: dict = {}
     _fields: list = []
-    _attrs: list = ['__module__', '__tablename__', 'id', 'last_update',
+    _ATTRS: list = ['__module__', '__tablename__', 'id', 'last_update',
                     '__doc__', '__table__', '_sa_class_manager', '__init__',
                     '__mapper__']
 
@@ -30,7 +30,7 @@ class BaseModel:
         """Virtually initialize a fields list."""
         if not cls._fields:
             dictret = dict(cls.__dict__)
-            for attr in cls._attrs:
+            for attr in cls._ATTRS:
                 dictret.pop(attr, None)
 
             cls._fields = [key for key in dictret if key[:4] != 'all_']

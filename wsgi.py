@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 
-from flaskr import create_app
+from server import create_app
 
 load_dotenv()
 app = create_app()

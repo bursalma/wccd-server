@@ -1,6 +1,5 @@
 class BaseAPI:
     name: str
-    response: dict
 
     def test_get_status(self, client):
         res = client.get(f'/{self.name}')
@@ -48,20 +47,16 @@ class TestConvictionAPI(BaseAPI):
     name = 'conviction'
 
     def test_bursal_modify(self, client):
-        # res2 = client.post('/convict', json={'last_name': 'bursal'})
-        # assert res2.json['last_name'] == 'bursal'
+        res2 = client.post('/convict', json={'last_name': 'bursal'})
+        assert res2.json['last_name'] == 'bursal'
 
         res = client.post(f'/{self.name}', json={
-            'company': 'Cognizant', 'convict_id': 1})
+            'company': 'Cognizant', 'convict_id': res2.json['id']})
         assert res.json['company'] == 'Cognizant'
+        assert res.json['convict_id'] == res2.json['id']
 
-        # assert res.json['convict_id'] == 1
-        # print(res.json)
-        # res2 = client.get('/convict/')
-        # print(res2.json)
-
-        # res2 = client.get(f'/convict/{res.json["convict_id"]}')
-        # assert res2.json['last_name'] == 'bursal'
+        res2 = client.get(f'/convict/{res.json["convict_id"]}')
+        assert res2.json['last_name'] == 'bursal'
 
         res = client.put(f'/{self.name}/{res.json["id"]}',
                          json={'company': 'HBO'})
