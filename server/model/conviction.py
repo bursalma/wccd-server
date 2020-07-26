@@ -1,4 +1,5 @@
 from .base import BaseModel, db, now
+from .sector import SectorConviction
 
 
 class Conviction(db.Model, BaseModel):
@@ -19,3 +20,6 @@ class Conviction(db.Model, BaseModel):
     source_date = db.Column(db.DateTime)
     last_update = db.Column(db.DateTime, default=now, onupdate=now)
     convict_id = db.Column(db.Integer, db.ForeignKey('convict.id'))
+    all_sector = db.relationship("Sector",
+                                 secondary=SectorConviction.__table__,
+                                 back_populates="all_conviction")

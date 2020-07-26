@@ -61,3 +61,43 @@ class TestConvictionAPI(BaseAPI):
         res = client.put(f'/{self.name}/{res.json["id"]}',
                          json={'company': 'HBO'})
         assert res.json['company'] == 'HBO'
+
+
+class TestSectorAPI(BaseAPI):
+    name = 'sector'
+
+    # def test_sector_modify(self, client):
+    #     res2 = client.post('/convict', json={'last_name': 'bursal'})
+    #     assert res2.json['last_name'] == 'bursal'
+
+    #     res = client.post(f'/{self.name}', json={
+    #         'company': 'Cognizant', 'convict_id': res2.json['id']})
+    #     assert res.json['company'] == 'Cognizant'
+    #     assert res.json['convict_id'] == res2.json['id']
+
+    #     res2 = client.get(f'/convict/{res.json["convict_id"]}')
+    #     assert res2.json['last_name'] == 'bursal'
+
+    #     res = client.put(f'/{self.name}/{res.json["id"]}',
+    #                      json={'company': 'HBO'})
+    #     assert res.json['company'] == 'HBO'
+
+
+class TestSectorConvictionAPI(BaseAPI):
+    name = 'sector_conviction'
+
+    # def test_sector_conviction(self, client):
+    #     res2 = client.post('/convict', json={'last_name': 'bursal'})
+    #     assert res2.json['last_name'] == 'bursal'
+
+    #     res = client.post(f'/{self.name}', json={
+    #         'company': 'Cognizant', 'convict_id': res2.json['id']})
+    #     assert res.json['company'] == 'Cognizant'
+    #     assert res.json['convict_id'] == res2.json['id']
+
+    #     res2 = client.get(f'/convict/{res.json["convict_id"]}')
+    #     assert res2.json['last_name'] == 'bursal'
+
+    #     res = client.put(f'/{self.name}/{res.json["id"]}',
+    #                      json={'company': 'HBO'})
+    #     assert res.json['company'] == 'HBO'

@@ -17,14 +17,16 @@ def create_app(env='prod'):
     db.init_app(app)
 
     with app.app_context():
-        from .controller import race, nationality, convict, \
-                                conviction
+        from .controller import race, nationality, convict, conviction, \
+                                sector
         from .data.utils import initial_insert
 
         app.register_blueprint(race.race_bp)
         app.register_blueprint(nationality.nationality_bp)
         app.register_blueprint(convict.convict_bp)
         app.register_blueprint(conviction.conviction_bp)
+        app.register_blueprint(sector.sector_bp)
+        app.register_blueprint(sector.sector_conviction_bp)
 
         db.create_all()
         initial_insert()
