@@ -4,9 +4,10 @@ from csv import reader
 from .. import db
 from ..model.nationality import Nationality
 from ..model.race import Race
+from ..model.sector import Sector
 
 
-def base_insert(model: db.Model, data: list):
+def basic_insert(model: db.Model, data: list):
     """Insert given data to the given table."""
     for item in data:
         row = model()
@@ -15,30 +16,33 @@ def base_insert(model: db.Model, data: list):
     db.session.commit()
 
 
-def txt_data(file: str) -> list:
+def txt_list(file: str) -> list:
     """Read txt from data directory."""
     with open('server/data/' + file) as f:
         return [row.replace('\n', '') for row in f]
 
 
-# def csv_data(file: str) -> list:
-#     """Read yaml from data directory."""
-#     with open('server/data/' + file) as f:
-#         for row in reader(f):
-#             return row
-
-    # with open('server/data/' + file) as f:
-    #     return safe_load(f)
+def dynamic_insert(model: db.Model, file: str):
+    """Dynamically add to table using first line for fields"""
+    fields = []
+    first_line = True
+    with open('server/data/' + file) as f:
+        for line in reader(f):
+            if first_line:
+                fields = line
+                first_line = False
+            else:
+                row = model()
+                for i, val in enumerate(line):
+                    if val != '':
+                        setattr(row, fields[i], val)
+                db.session.add(row)
+        db.session.commit()
 
 
 def initial_insert():
     """Used by application init at the start of the server."""
-    base_insert(Nationality, txt_data('nationalities.txt'))
-    base_insert(Race, ['Asian', 'Black', 'Hispanic',
-                       'White', 'Other', 'NOT REPORTED'])
-
-    # with open('server/data/test.json') as f:
-    #     import json
-    #     dat = json.load(f)
-    #     print(type(dat))
-    #     print(dat)
+    basic_insert(Nationality, txt_list('nationality.txt'))
+    basic_insert(Race, ['Asian', 'Black', 'Hispanic',
+                        'White', 'Other', 'NOT REPORTED'])
+    dynamic_insert(Sector, 'sector.csv')
